@@ -19,15 +19,17 @@ RUN apt-get update && \
 # Устанавливаем pip, setuptools и wheel
 RUN python3 -m pip install --upgrade pip setuptools wheel
 
-# Устанавливаем зависимости из requirements.txt
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Копирование файла требований зависимостей Python в контейнер
+COPY requirements.txt /workspace/requirements.txt
 
-# Копируем папку train в контейнер
-COPY trainer /app/train
+# Установка зависимостей Python из файла требований
+RUN pip install --no-cache-dir -r /workspace/requirements.txt
 
-# Создаем рабочую директорию
-WORKDIR /app/train
+# Копирование оставшегося исходного кода проекта в контейнер
+COPY . /workspace
+
+# Установка рабочей директории
+WORKDIR /workspace
 
 # Команда по умолчанию, запускающая оболочку bash
 CMD ["bash"]
