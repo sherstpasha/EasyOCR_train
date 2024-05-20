@@ -29,5 +29,5 @@ COPY trainer /app/train
 # Создаем рабочую директорию
 WORKDIR /app/train
 
-# Команда для запуска тренировочного скрипта
-CMD ["python3", "your_training_script.py"]
+# Команда по умолчанию, запускающая оболочку bash
+CMD ["bash"]
